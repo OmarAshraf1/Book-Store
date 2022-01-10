@@ -13,19 +13,19 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane layoutY="30.0" prefHeight="480.0" prefWidth="250.0" style="-fx-background-color: #2C3038;">
+      <AnchorPane layoutY="1.0" prefHeight="700.0" prefWidth="250.0" style="-fx-background-color: #2C3038;">
          <children>
             <ImageView fitHeight="199.0" fitWidth="203.0" layoutX="24.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Icons/ProfileImage.png" />
                </image>
             </ImageView>
-            <Label alignment="CENTER" layoutX="24.0" layoutY="263.0" prefHeight="32.0" prefWidth="200.0" style="-fx-border-color: white; -fx-border-radius: 5;" text="User Name" textAlignment="CENTER" textFill="WHITE">
+            <Label alignment="CENTER" layoutX="54.0" layoutY="106.0" prefHeight="17.0" prefWidth="144.0" text="Welcome" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Arial Narrow Bold" size="20.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="54.0" layoutY="106.0" prefHeight="17.0" prefWidth="144.0" text="Welcome" textAlignment="CENTER" textFill="WHITE">
+            <Label alignment="CENTER" layoutX="24.0" layoutY="263.0" prefHeight="32.0" prefWidth="200.0" style="-fx-border-color: white; -fx-border-radius: 5;" text="User Name" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Arial Narrow Bold" size="20.0" />
                </font>
