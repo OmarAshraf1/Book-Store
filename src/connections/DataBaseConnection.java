@@ -132,8 +132,6 @@ public class DataBaseConnection {
             statement.execute();
             return true;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
             return false;
         }
     }
@@ -164,6 +162,7 @@ public class DataBaseConnection {
                 statement3.setString(2,author);
                 statement3.execute();
             }
+            return true;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
