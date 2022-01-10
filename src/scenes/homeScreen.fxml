@@ -46,7 +46,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HomeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1250.0" style="-fx-background-color: #2C3038;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HomeController">
    <children>
       <AnchorPane prefHeight="700.0" prefWidth="250.0" style="-fx-background-color: #2C3038;">
          <children>
@@ -107,7 +107,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="250.0" layoutY="627.0" prefHeight="73.0" prefWidth="1002.0" style="-fx-background-color: #2C3038;">
+      <AnchorPane layoutX="250.0" layoutY="627.0" prefHeight="73.0" prefWidth="1000.0" style="-fx-background-color: #2C3038;">
          <children>
             <Button layoutX="769.0" layoutY="13.0" mnemonicParsing="false" onAction="#addBooksToCart" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: green;" text="Add Books to Cart" textAlignment="CENTER" textFill="WHITE">
                <font>
@@ -175,17 +175,18 @@
             </Button>
          </children>
       </AnchorPane>
-      <TableView layoutX="250.0" layoutY="60.0" prefHeight="567.0" prefWidth="1002.0">
-        <columns>
-          <TableColumn editable="false" prefWidth="75.0" text="ISBN" />
-          <TableColumn prefWidth="134.0" text="Title" />
-            <TableColumn prefWidth="81.0" text="Copies Num" />
-            <TableColumn prefWidth="191.0" text="Author(s)" />
-            <TableColumn prefWidth="131.0" text="Category" />
-            <TableColumn minWidth="0.0" prefWidth="92.0" text="Selling Price" />
-            <TableColumn prefWidth="196.0" text="Publisher" />
-            <TableColumn prefWidth="100.0" text="Publication Year" />
-        </columns>
+      <TableView fx:id="cartTable" layoutX="247.0" layoutY="59.0" prefHeight="567.0" prefWidth="972.0">
+         <columns>
+            <TableColumn fx:id="col_ISBN" editable="false" prefWidth="75.0" text="ISBN" />
+            <TableColumn fx:id="col_title" prefWidth="96.80001831054688" text="Title" />
+            <TableColumn fx:id="col_author" prefWidth="120.800048828125" text="Author(s)" />
+            <TableColumn fx:id="col_category" prefWidth="96.79998779296875" text="Category" />
+            <TableColumn fx:id="col_copiesNum" prefWidth="105.5999755859375" text="Copies Num" />
+            <TableColumn fx:id="col_sellingPrice" minWidth="0.0" prefWidth="115.199951171875" text="Selling Price" />
+            <TableColumn fx:id="col_totalPrice" minWidth="0.0" prefWidth="100.79998779296875" text="Total Price" />
+            <TableColumn fx:id="col_publisher" prefWidth="120.0001220703125" text="Publisher(s)" />
+            <TableColumn fx:id="col_publicationYear" minWidth="0.0" prefWidth="136.266845703125" text="Publication Year" />
+         </columns>
       </TableView>
    </children>
 </AnchorPane>
