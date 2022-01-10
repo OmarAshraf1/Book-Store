@@ -11,6 +11,11 @@ public class User {
     
     private Boolean isManager = false;
 
+    public User (String username, String password){
+        this.username = username ;
+        this.password = password ;
+    }
+    
     public User (String username, String password, String firstName, String lastName, String emailAddress, String phoneNumber, String shippingAddress){
         this.username = username;
         this.password = password;
@@ -21,9 +26,15 @@ public class User {
         this.shippingAddress = shippingAddress;
     }
 
-    public User (String username, String password){
-        this.username = username ;
-        this.password = password ;
+    public User (String username, String password, String firstName, String lastName, String emailAddress, String phoneNumber, String shippingAddress, Boolean isManager){
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.emailAddress = emailAddress;
+        this.phoneNumber = phoneNumber;
+        this.shippingAddress = shippingAddress;
+        this.isManager = isManager;
     }
 
     public String getUsername() {
