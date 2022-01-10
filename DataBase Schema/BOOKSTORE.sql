@@ -304,7 +304,7 @@ DELIMITER ;
 
 DELIMITER $$
 CREATE PROCEDURE editUserInfo(IN Username VARCHAR(25), IN NewUsername VARCHAR(25), IN FName VARCHAR(25),
-                              LName VARCHAR(25), Email VARCHAR(100), PhoneNo VARCHAR(20), ShipAdd VARCHAR(100))
+                              LName VARCHAR(25), Email VARCHAR(100), PhoneNo VARCHAR(20), ShipAdd VARCHAR(100), IN Pass VARCHAR(16))
 BEGIN
     UPDATE CUSTOMER
     SET User_Name        = NewUsername,
@@ -312,7 +312,8 @@ BEGIN
         Last_Name        = LName,
         Email_Address    = Email,
         Phone_Number     = PhoneNo,
-        Shipping_Address = ShipAdd
+        Shipping_Address = ShipAdd,
+        Password = Pass
     WHERE User_Name = Username;
 END$$
 DELIMITER ;
