@@ -5,12 +5,26 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import models.User ;
+import models.ViewCart ;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import jasper.JasperManager;
+import jasper.JasperManager.Template;
+import jasper.JasperManagerCSV;
+
 
 public class DataBaseConnection {
     String url = "jdbc:mysql://localhost:3306/bookstore";
     String dbUser = "test";
     String password = "test";
-
+    
+    jasper.JasperManager jasper = new JasperManagerCSV() ;  
+    
+    String LoggedinUser = null ;
+//calling procedures cite: https://www.mysqltutorial.org/calling-mysql-stored-procedures-from-jdbc/
     public Boolean sign_up (User user) {
         try{
             System.out.println("okok");
@@ -47,6 +61,218 @@ public class DataBaseConnection {
         }
         return true;
     }
+    ///////
+      //
+    // Method to add to cart a book 
+    public void AddtoCart(int ISBN,int Copies) throws SQLException {
+    	
+    	Connection connection = DriverManager.getConnection(url, username, password);
+    	String query = "{call AddtoCart(?,?,?)}" ;
+    	
+    	CallableStatement  callableStatement =  connection.prepareCall(query) ;
+    	//set query vars
+    	callableStatement.setString(1, LoggedinUser);
+    	callableStatement.setInt(2, ISBN);
+    	callableStatement.setInt(3, Copies);
+    	callableStatement.execute() ;
+    	
+    	
+    			
+    	
+    }
+    //Method to get cart items
+    public ArrayList<ViewCart> GetCart(String UserName) throws SQLException {
+    	ArrayList<ViewCart> viewCarts = new ArrayList<ViewCart>() ;
+    	Connection connection = DriverManager.getConnection(url, username, password);
+    	String query = "{call ViewCart(?)}" ;
+    	
+    	CallableStatement  callableStatement =  connection.prepareCall(query) ;
+    	callableStatement.setString(1, UserName);
+    	callableStatement.execute();
+    	ResultSet result = callableStatement.getResultSet() ;
+    	
+    	//Parse and add tuples to the array list 
+    	while(result.next()) {
+    		ViewCart viewCart = new ViewCart(result.getString(1), result.getString(2), result.getString(3),
+    				result.getString(4), result.getString(5), result.getString(6), result.getString(7), result.getString(8));
+    		viewCarts.add(viewCart);
+    	}
+    	
+    	
+    	return viewCarts ;
+	}
+    //Method to remove from cart
+    public void RemovefromCart(int ISBN) throws SQLException {
+    	Connection connection = DriverManager.getConnection(url, username, password);
+    	String query = "{call RemovefromCart(?,?)}" ;
+    	
+    	
+    	CallableStatement  callableStatement =  connection.prepareCall(query) ;
+    	callableStatement.setString(1,LoggedinUser);
+    	callableStatement.setInt(2, ISBN);
+    	callableStatement.execute(); 
+    }
+    //Method to check out
+    public void CheckOut()  {
+    	Connection connection = null;
+		try {
+			String query = "{call checkout(?)}" ;
+			connection = DriverManager.getConnection(url, username, password);
+			CallableStatement  callableStatement =  connection.prepareCall(query) ;
+	    	callableStatement.setString(1,LoggedinUser);
+	    	//user in real life can check out in same time so 
+	    	//need to synchronize this process and make sure only 1 user checks
+	    	
+	    	connection.setAutoCommit(false);
+	    	
+	    	callableStatement.execute(); 
+	    	connection.commit();
+		} catch (SQLException e) {
+			//if connection cant commit return to latest point
+			 try {
+	                assert connection != null;
+	                connection.rollback();
+	            } catch (SQLException e2) {
+	                e2.printStackTrace();
+	            }
+		}
+    	//commit again
+		 try {
+	            connection.setAutoCommit(true);
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	       }	
+    	
+    	
+    }
+    
+    //Method to log out
+    public void LogOut() throws SQLException {
+    	Connection connection = DriverManager.getConnection(url, username, password);
+    	String query = "{call logout(?)}" ;
+    	
+    	
+    	CallableStatement  callableStatement =  connection.prepareCall(query) ;
+    	callableStatement.setString(1,LoggedinUser);
+    	
+    	callableStatement.execute(); 
+    	LoggedinUser = "" ;
+    }
+    
+    //Method to promote user
+    public void Promote() throws SQLException {
+    	Connection connection = DriverManager.getConnection(url, username, password);
+    	String query = "{call promote(?)}" ;
+    	
+    	
+    	CallableStatement  callableStatement =  connection.prepareCall(query) ;
+    	callableStatement.setString(1,LoggedinUser);
+    	
+    	callableStatement.execute(); 
+    	
+    }
+    //Generate last month report
+    public void GenerateLastMonthReport() throws SQLException, IOException {
+    	Connection connection = DriverManager.getConnection(url, username, password);
+    	String query = "{totalSalesPrevMonthReport()}" ;
+    	
+    	
+    	CallableStatement  callableStatement =  connection.prepareCall(query) ;
+    	
+    	callableStatement.execute(); 
+    	FileWriter myWriter = new FileWriter("totalSalesPrevMonthReport.csv");
+        ResultSet resultSet = callableStatement.getResultSet();
+    	//write csv file 
+        while (resultSet.next()) {
+            for (int i = 1; i < 9; ++i) {
+                myWriter.append(resultSet.getString(i));
+                //if not the last column
+                if (i != 8) {
+                    myWriter.append(",");
+                }
+            }
+            myWriter.append("\n");
+        }
+        myWriter.close();
+        jasper.generatePDF("totalSalesPrevMonthReport.csv", Template.SALES_REPORT) ;
+        
+        
+    }
+    public void TopFivePurchase() throws SQLException, IOException {
+    	Connection connection = DriverManager.getConnection(url, username, password);
+    	String query = "{topFiveCustomersReport()}" ;
+    	
+    	
+    	CallableStatement  callableStatement =  connection.prepareCall(query) ;
+    	
+    	callableStatement.execute(); 
+    	FileWriter myWriter = new FileWriter("TopFivePurchase.csv");
+        ResultSet resultSet = callableStatement.getResultSet();
+    	//write csv file 
+        while (resultSet.next()) {
+            for (int i = 1; i < 5; ++i) {
+                myWriter.append(resultSet.getString(i));
+                //if not the last column
+                if (i != 4) {
+                    myWriter.append(",");
+                }
+            }
+            myWriter.append("\n");
+        }
+        myWriter.close();
+        jasper.generatePDF("TopFivePurchase.csv", Template.TOP_CUSTOMERS) ;
+        
+        
+    }
+    public void TopTenBooks() throws SQLException, IOException {
+    	Connection connection = DriverManager.getConnection(url, username, password);
+    	String query = "{topTenBestSellersReport()}" ;
+    	
+    	
+    	CallableStatement  callableStatement =  connection.prepareCall(query) ;
+    	
+    	callableStatement.execute(); 
+    	FileWriter myWriter = new FileWriter("TopTenBooks.csv");
+        ResultSet resultSet = callableStatement.getResultSet();
+    	//write csv file 
+        while (resultSet.next()) {
+            for (int i = 1; i < 4; ++i) {
+                myWriter.append(resultSet.getString(i));
+                //if not the last column
+                if (i != 3) {
+                    myWriter.append(",");
+                }
+            }
+            myWriter.append("\n");
+        }
+        myWriter.close();
+        jasper.generatePDF("TopTenBooks.csv", Template.BEST_SELLERS) ;
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
