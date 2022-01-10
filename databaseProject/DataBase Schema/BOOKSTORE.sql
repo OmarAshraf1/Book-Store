@@ -141,19 +141,20 @@ END $$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE signIn(IN UserName VARCHAR(25), IN Pass VARCHAR(16), OUT IsManager BOOLEAN)
+CREATE PROCEDURE signIn(IN UserName VARCHAR(25), IN Pass VARCHAR(16),out FName VARCHAR(25),
+                              out LName VARCHAR(25),out Email VARCHAR(100),out PhoneNo VARCHAR(20),
+                              out ShipAdd VARCHAR(100), OUT IsManager BOOLEAN)
 BEGIN
-    IF NOT EXISTS(SELECT *
+	IF NOT EXISTS(SELECT *
                   FROM CUSTOMER
                   WHERE User_Name = UserName
                     AND Password = Pass) THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'PLEASE CHECK YOUR CREDENTIALS AND TRY AGAIN';
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Invalid Username or Password !!';
     END IF;
-    #insert manager status in customer by copying ismanager parameter
-    SELECT Is_Manager
-    INTO IsManager
-    FROM CUSTOMER
-    WHERE User_Name = UserName;
+	SELECT First_Name, Last_Name, Email_Address, Phone_Number, Shippping_Address, Is_Manager
+	INTO FName , LName , Email , PhoneNo , ShipAdd , IsManager
+	FROM CUSTOMER
+	WHERE User_Name = UserName;
 END$$
 DELIMITER ;
 
