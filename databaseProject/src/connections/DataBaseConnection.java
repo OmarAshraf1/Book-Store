@@ -34,11 +34,12 @@ public class DataBaseConnection {
         this.active_user = active_user;
     }
 
+    // Method to Sign Up
     public Boolean sign_up (User user) {
         try{
             // Connect to the database
             Connection connection = DriverManager.getConnection(url, dbUser, password);
-            // Call the sql required procedure
+            // Call the sql required procedure to Sign Up
             CallableStatement statement = connection.prepareCall("{call signUp(?, ?, ?, ?, ?, ?, ?)}");
             statement.setString(1, user.getUsername());
             statement.setString(2, user.getPassword());
@@ -57,11 +58,12 @@ public class DataBaseConnection {
         return true;
     }
 
+    // Method to Sign in
     public Boolean sign_in (User user){
         try{
             // Connect to the database
             Connection connection = DriverManager.getConnection(url, dbUser, password);
-            // Call the sql required procedure
+            // Call the sql required procedure to sign in
             CallableStatement statement = connection.prepareCall("{call signIn(?, ?, ?, ?, ?, ?, ?, ?)}");
             statement.setString(1, user.getUsername());
             statement.setString(2, user.getPassword());
@@ -80,8 +82,44 @@ public class DataBaseConnection {
         }
         return true;
     }
+
+    // Method to add a book
+    public Boolean add_book (Book book){
+        try{
+            // String arrOfAuthors[] = authors.split(",");
+            // Connect to the database
+            Connection connection = DriverManager.getConnection(url, dbUser, password);
+            // Call the sql required procedure to add the book
+            CallableStatement statement = connection.prepareCall("{call addBook(?, ?, ?, ?, ?, ?, ?)}");
+            statement1.setInt(1, book.getISBN());
+            statement1.setString(2, book.getTitle());
+            statement1.setString(3,book.getPublisher());
+            statement1.setString(4, book.getCategory());
+            statement1.setDouble(5, book.getSellingPrice());
+            statement1.setInt(6, book.getPublicationYear());
+            statement1.setInt(7, book.getThreshold());
+            statement1.execute();
+
+            // Call the sql required procedure to add the authors
+            CallableStatement statement2 = conn.prepareCall("{call addAuthor(?, ?)}");
+            for (String author : book.getAuthors()){
+                statement2.setInt(1, book.getISBN());
+                statement2.setString(2,author);
+                statement2.execute();
+            }
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+
+
+
     ///////
-      //
     // Method to add to cart a book 
     public void AddtoCart(int ISBN,int Copies) throws SQLException {
     	
@@ -95,10 +133,8 @@ public class DataBaseConnection {
     	callableStatement.setInt(3, Copies);
     	callableStatement.execute() ;
     	
-    	
-    			
-    	
     }
+
     //Method to get cart items
     public ArrayList<ViewCart> GetCart(String UserName) throws SQLException {
     	ArrayList<ViewCart> viewCarts = new ArrayList<ViewCart>() ;
@@ -120,6 +156,7 @@ public class DataBaseConnection {
     	
     	return viewCarts ;
 	}
+
     //Method to remove from cart
     public void RemovefromCart(int ISBN) throws SQLException {
     	Connection connection = DriverManager.getConnection(url, username, password);
@@ -131,6 +168,7 @@ public class DataBaseConnection {
     	callableStatement.setInt(2, ISBN);
     	callableStatement.execute(); 
     }
+
     //Method to check out
     public void CheckOut()  {
     	Connection connection = null;
@@ -190,6 +228,7 @@ public class DataBaseConnection {
     	callableStatement.execute(); 
     	
     }
+
     //Generate last month report
     public void GenerateLastMonthReport() throws SQLException, IOException {
     	Connection connection = DriverManager.getConnection(url, username, password);
@@ -217,6 +256,7 @@ public class DataBaseConnection {
         
         
     }
+
     public void TopFivePurchase() throws SQLException, IOException {
     	Connection connection = DriverManager.getConnection(url, username, password);
     	String query = "{topFiveCustomersReport()}" ;
@@ -243,6 +283,7 @@ public class DataBaseConnection {
         
         
     }
+
     public void TopTenBooks() throws SQLException, IOException {
     	Connection connection = DriverManager.getConnection(url, username, password);
     	String query = "{topTenBestSellersReport()}" ;
@@ -269,59 +310,6 @@ public class DataBaseConnection {
         
         
     }
+      
     
-    
-    
-    
-    
-    
-    
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public Boolean add_book (Book book){
-        try{
-            // String arrOfAuthors[] = authors.split(",");
-            // Connect to the database
-            Connection connection = DriverManager.getConnection(url, dbUser, password);
-            // Call the sql required procedure
-            CallableStatement statement = connection.prepareCall("{call addBook(?, ?, ?, ?, ?, ?, ?)}");
-            statement1.setInt(1, book.getISBN());
-            statement1.setString(2, book.getTitle());
-            statement1.setString(3,book.getPublisher());
-            statement1.setString(4, book.getCategory());
-            statement1.setDouble(5, book.getSellingPrice());
-            statement1.setInt(6, book.getPublicationYear());
-            statement1.setInt(7, book.getThreshold());
-            statement1.execute();
-
-            // Call the sql required procedure
-            CallableStatement statement2 = conn.prepareCall("{call addAuthor(?, ?)}");
-            for (String author : book.getAuthors()){
-                statement2.setInt(1, book.getISBN());
-                statement2.setString(2,author);
-                statement2.execute();
-            }
-            
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-            return false;
-        }
-        return true;
-    }
 }
