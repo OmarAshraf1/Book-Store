@@ -116,8 +116,29 @@ public class DataBaseConnection {
         return true;
     }
 
-
-
+    // Method to edit the user info
+    public Boolean edit_user_info (User user) {
+        try {
+            // Connect to the database
+            Connection connection = DriverManager.getConnection(url, dbUser, password);
+            // Call the sql required procedure to edit the user info
+            CallableStatement statement = conn.prepareCall("{call editUserInfo(?, ?, ?, ?, ?, ?, ?, ?)}");
+            statement.setString(1, getActive_user().getUsername());
+            statement.setString(2, user.getUsername());
+            statement.setString(3, user.getFirstName());
+            statement.setString(4, user.getLastName());
+            statement.setString(5, user.getEmailAddress());
+            statement.setString(6, user.getPhoneNumber());
+            statement.setString(7, user.getShippingAddress());
+            statement.setString(8, user.getPassword());
+            statement.execute();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     ///////
     // Method to add to cart a book 
