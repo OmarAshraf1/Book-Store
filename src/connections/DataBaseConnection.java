@@ -144,22 +144,22 @@ public class DataBaseConnection {
     }
 
     // Method to search with any criteria
-    public ArrayList<Book> search (String category, String search_text){
+    public ArrayList<Book> search (String criteria, String search_text){
         ArrayList<java.awt.print.Book> result = new ArrayList<>();
         try {
             Connection connection = DriverManager.getConnection(url, dbUser, password);
             CallableStatement statement;
-            if ( category.equals("ISBN") ){
+            if ( criteria.equals("ISBN") ){
                 int ISBN = Integer.parseInt(search_text);
                 statement = search_ISBN(ISBN, connection);
             }
-            else if ( category.equals("Title") ){
+            else if ( criteria.equals("Title") ){
                 statement = search_Title(search_text, connection);
             }
-            else if ( category.equals("Category") ){
+            else if ( criteria.equals("Category") ){
                 statement = search_Category(search_text, connection);
             }
-            else if ( category.equals("Author") ){
+            else if ( criteria.equals("Author") ){
                 statement = search_Author(search_text, connection);
             }
             else {
