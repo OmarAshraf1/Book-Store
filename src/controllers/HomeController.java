@@ -1,5 +1,6 @@
 package controllers;
 
+import connections.DataBaseConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -41,7 +42,7 @@ public class HomeController implements Initializable {
         searchCategories.getItems().addAll(allCategories);
         searchCategories.setValue("Tittle");
         searchCategories.setOnAction(this::changeCategory);
-        this.usernameToShow.setText(Main.currentUser.getUsername());
+        this.usernameToShow.setText(DataBaseConnection.active_user.getUsername());
     }
 
     public void changeCategory(ActionEvent event){
