@@ -151,7 +151,7 @@ BEGIN
                     AND Password = Pass) THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Invalid Username or Password !!';
     END IF;
-	SELECT First_Name, Last_Name, Email_Address, Phone_Number, Shippping_Address, Is_Manager
+	SELECT First_Name, Last_Name, Email_Address, Phone_Number, Shipping_Address, Is_Manager
 	INTO FName , LName , Email , PhoneNo , ShipAdd , IsManager
 	FROM CUSTOMER
 	WHERE User_Name = UserName;
