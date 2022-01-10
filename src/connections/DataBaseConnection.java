@@ -184,6 +184,24 @@ public class DataBaseConnection {
         }
     }
 
+    // Method to confirm an Order
+    public Boolean createOrder(int orderNo, int ISBN, int quantity) {
+        try {
+            // Connect to the database
+            Connection connection = DriverManager.getConnection(url, dbUser, password);
+            // Call the sql required procedure to confirm the order
+            CallableStatement statement = connection.prepareCall("{call createOrder(?, ?, ?)}");
+            statement.setInt(1, orderNo);
+            statement.setInt(2, ISBN);
+            statement.setInt(3, quantity);
+            statement.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     // Method to edit the user info
     public Boolean edit_user_info (User user) {
         try {
