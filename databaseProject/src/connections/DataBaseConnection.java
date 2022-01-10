@@ -17,6 +17,7 @@ import jasper.JasperManagerCSV;
 
 
 public class DataBaseConnection {
+<<<<<<< Updated upstream
     String url = "jdbc:mysql://localhost:3306/bookstore";
     String dbUser = "test";
     String password = "test";
@@ -25,12 +26,28 @@ public class DataBaseConnection {
     
     String LoggedinUser = null ;
 //calling procedures cite: https://www.mysqltutorial.org/calling-mysql-stored-procedures-from-jdbc/
+=======
+    private String url = "jdbc:mysql://localhost:3306/bookstore";
+    private String dbUser = "root";
+    private String password = "123456";
+
+    private User active_user;
+
+    public User getActive_user() {
+        return active_user;
+    }
+
+    public void setActive_user(User active_user) {
+        this.active_user = active_user;
+    }
+
+>>>>>>> Stashed changes
     public Boolean sign_up (User user) {
         try{
-            System.out.println("okok");
+            // Connect to the database
             Connection connection = DriverManager.getConnection(url, dbUser, password);
+            // Call the sql required procedure
             CallableStatement statement = connection.prepareCall("{call signUp(?, ?, ?, ?, ?, ?, ?)}");
-
             statement.setString(1, user.getUsername());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getFirstName());
@@ -50,13 +67,23 @@ public class DataBaseConnection {
 
     public Boolean sign_in (User user){
         try{
+            // Connect to the database
             Connection connection = DriverManager.getConnection(url, dbUser, password);
-            CallableStatement statement = connection.prepareCall("{call signIn(?, ?, ?)}");
+            // Call the sql required procedure
+            CallableStatement statement = connection.prepareCall("{call signIn(?, ?, ?, ?, ?, ?, ?, ?)}");
             statement.setString(1, user.getUsername());
             statement.setString(2, user.getPassword());
             statement.execute();
-            user.setIsManager(statement.getBoolean(3));
+
+            /* Store the current active user */
+            User newUser = new User(user.getUsername(), user.getPassword(), statement.getString(3),
+                                     statement.getString(4), statement.getString(5),
+                                      statement.getString(6), statement.getString(7), statement.getBoolean(8));
+            setActive_user(newUser);
+
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
             return false;
         }
         return true;
@@ -274,7 +301,35 @@ public class DataBaseConnection {
 
 
 
+    public Boolean add_book (Book book){
+        try{
+            // String arrOfAuthors[] = authors.split(",");
+            // Connect to the database
+            Connection connection = DriverManager.getConnection(url, dbUser, password);
+            // Call the sql required procedure
+            CallableStatement statement = connection.prepareCall("{call addBook(?, ?, ?, ?, ?, ?, ?)}");
+            statement1.setInt(1, book.getISBN());
+            statement1.setString(2, book.getTitle());
+            statement1.setString(3,book.getPublisher());
+            statement1.setString(4, book.getCategory());
+            statement1.setDouble(5, book.getSellingPrice());
+            statement1.setInt(6, book.getPublicationYear());
+            statement1.setInt(7, book.getThreshold());
+            statement1.execute();
 
-
-
+            // Call the sql required procedure
+            CallableStatement statement2 = conn.prepareCall("{call addAuthor(?, ?)}");
+            for (String author : book.getAuthors()){
+                statement2.setInt(1, book.getISBN());
+                statement2.setString(2,author);
+                statement2.execute();
+            }
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 }
