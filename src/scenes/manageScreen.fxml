@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <AnchorPane prefHeight="700.0" prefWidth="1250.0" style="-fx-background-color: #2C3038;">
+            <children>
+                <ImageView fitHeight="199.0" fitWidth="203.0" layoutX="24.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../icons/ProfileImage.png" />
+                    </image>
+                </ImageView>
+                <Label alignment="CENTER" layoutX="54.0" layoutY="106.0" prefHeight="17.0" prefWidth="144.0" text="Welcome" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Narrow Bold" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="24.0" layoutY="263.0" prefHeight="32.0" prefWidth="200.0" style="-fx-border-color: white; -fx-border-radius: 5;" text="User Name" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Narrow Bold" size="20.0" />
+                    </font>
+                </Label>
+                <Label layoutX="270.0" layoutY="107.0" prefHeight="17.0" prefWidth="144.0" text="ISBN " textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Narrow Bold" size="16.0" />
+                    </font>
+                </Label>
+                <TextField layoutX="270.0" layoutY="125.0" prefHeight="20.0" prefWidth="200.0" />
+                <Label layoutX="270.0" layoutY="153.0" prefHeight="17.0" prefWidth="144.0" text="Title" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Narrow Bold" size="16.0" />
+                    </font>
+                </Label>
+                <TextField layoutX="270.0" layoutY="171.0" prefHeight="20.0" prefWidth="200.0" />
+                <Label layoutX="270.0" layoutY="197.0" prefHeight="17.0" prefWidth="144.0" text="Copies Number" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Narrow Bold" size="16.0" />
+                    </font>
+                </Label>
+                <TextField layoutX="270.0" layoutY="217.0" prefHeight="20.0" prefWidth="200.0" />
+                <Label layoutX="270.0" layoutY="244.0" prefHeight="17.0" prefWidth="144.0" text="Author(s)" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Narrow Bold" size="16.0" />
+                    </font>
+                </Label>
+                <TextField layoutX="270.0" layoutY="263.0" prefHeight="20.0" prefWidth="200.0" />
+                <Label layoutX="270.0" layoutY="289.0" prefHeight="17.0" prefWidth="144.0" text="Category" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Narrow Bold" size="16.0" />
+                    </font>
+                </Label>
+                <TextField layoutX="270.0" layoutY="310.0" prefHeight="20.0" prefWidth="200.0" />
+                <Label layoutX="270.0" layoutY="337.0" prefHeight="17.0" prefWidth="144.0" text="Selling Price" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Narrow Bold" size="16.0" />
+                    </font>
+                </Label>
+                <TextField layoutX="270.0" layoutY="358.0" prefHeight="20.0" prefWidth="200.0" />
+                <Label layoutX="270.0" layoutY="430.0" prefHeight="17.0" prefWidth="144.0" text="Publisher(s)" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Narrow Bold" size="16.0" />
+                    </font>
+                </Label>
+                <TextField layoutX="270.0" layoutY="449.0" prefHeight="20.0" prefWidth="200.0" promptText="Ex: Ahmed,Ali" />
+                <Label layoutX="270.0" layoutY="478.0" prefHeight="17.0" prefWidth="144.0" text="Publication Year" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Narrow Bold" size="16.0" />
+                    </font>
+                </Label>
+                <TextField layoutX="270.0" layoutY="496.0" prefHeight="20.0" prefWidth="200.0" />
+                <Label layoutX="270.0" layoutY="524.0" prefHeight="21.0" prefWidth="161.0" text="Publisher Address(s)" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Narrow Bold" size="16.0" />
+                    </font>
+                </Label>
+                <TextField layoutX="270.0" layoutY="544.0" prefHeight="20.0" prefWidth="200.0" promptText="Ex: Alexandria,Cairo" />
+                <Label layoutX="270.0" layoutY="573.0" prefHeight="17.0" prefWidth="144.0" text="Publisher Phone(s)" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Narrow Bold" size="16.0" />
+                    </font>
+                </Label>
+                <TextField layoutX="270.0" layoutY="592.0" prefHeight="20.0" prefWidth="200.0" promptText="Ex: 01113077857,01006533574" />
+                <Label layoutX="498.0" layoutY="573.0" prefHeight="17.0" prefWidth="144.0" text="Book ISBN " textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Narrow Bold" size="16.0" />
+                    </font>
+                </Label>
+                <TextField layoutX="498.0" layoutY="592.0" prefHeight="20.0" prefWidth="200.0" />
+                <Label layoutX="271.0" layoutY="384.0" prefHeight="17.0" prefWidth="144.0" text="Threshold" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Narrow Bold" size="16.0" />
+                    </font>
+                </Label>
+                <TextField layoutX="270.0" layoutY="402.0" prefHeight="20.0" prefWidth="200.0" />
+                <Label layoutX="498.0" layoutY="292.0" prefHeight="17.0" prefWidth="144.0" text="Book ISBN " textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Narrow Bold" size="16.0" />
+                    </font>
+                </Label>
+                <TextField layoutX="498.0" layoutY="311.0" prefHeight="20.0" prefWidth="200.0" />
+                <Label layoutX="498.0" layoutY="338.0" prefHeight="17.0" prefWidth="144.0" text="Field" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Narrow Bold" size="16.0" />
+                    </font>
+                </Label>
+                <TextField layoutX="498.0" layoutY="358.0" prefHeight="20.0" prefWidth="200.0" />
+                <Label layoutX="498.0" layoutY="385.0" prefHeight="17.0" prefWidth="144.0" text="Updated Value" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Narrow Bold" size="16.0" />
+                    </font>
+                </Label>
+                <TextField layoutX="498.0" layoutY="405.0" prefHeight="20.0" prefWidth="200.0" />
+                <Button layoutX="498.0" layoutY="449.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #8d8d8d;" text="Edit Data" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Rounded MT Bold" size="14.0" />
+                    </font>
+                </Button>
+
+                <Label layoutX="498.0" layoutY="106.0" prefHeight="17.0" prefWidth="144.0" text="User Name" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Narrow Bold" size="16.0" />
+                    </font>
+                </Label>
+                <TextField layoutX="498.0" layoutY="125.0" prefHeight="20.0" prefWidth="200.0" />
+                <Button layoutX="498.0" layoutY="171.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #8d8d8d;" text="Promote User" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Rounded MT Bold" size="14.0" />
+                    </font>
+                </Button>
+
+                <TextField layoutX="775.0" layoutY="544.0" prefHeight="20.0" prefWidth="200.0" />
+                <Label layoutX="775.0" layoutY="525.0" prefHeight="17.0" prefWidth="144.0" text="Book ISBN" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Narrow Bold" size="16.0" />
+                    </font>
+                </Label>
+                <Label layoutX="775.0" layoutY="573.0" prefHeight="17.0" prefWidth="144.0" text="Copies Number" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Narrow Bold" size="16.0" />
+                    </font>
+                </Label>
+                <TextField layoutX="775.0" layoutY="593.0" prefHeight="20.0" prefWidth="200.0" />
+                <Button layoutX="775.0" layoutY="637.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #8d8d8d;" text="Order Books" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Rounded MT Bold" size="14.0" />
+                    </font>
+                </Button>
+                <TextField layoutX="1021.0" layoutY="591.0" prefHeight="20.0" prefWidth="200.0" />
+                <Label layoutX="1021.0" layoutY="572.0" prefHeight="17.0" prefWidth="144.0" text="Order ID" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Narrow Bold" size="16.0" />
+                    </font>
+                </Label>
+                <Button layoutX="1021.0" layoutY="636.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: green;" text="Confirm Order" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Rounded MT Bold" size="14.0" />
+                    </font>
+                </Button>
+
+
+                <Button layoutX="270.0" layoutY="637.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #8d8d8d;" text="Add Book" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Rounded MT Bold" size="14.0" />
+                    </font>
+                </Button>
+                <ImageView fitHeight="23.0" fitWidth="21.0" layoutX="298.0" layoutY="644.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../icons/icons8_add_24px_3.png" />
+                    </image>
+                </ImageView>
+                <Button layoutX="498.0" layoutY="637.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #8d8d8d;" text="Remove Book" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Rounded MT Bold" size="14.0" />
+                    </font>
+                </Button>
+                <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="517.0" layoutY="644.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../icons/icons8_remove_24px_1.png" />
+                    </image>
+                </ImageView>
+                <TableView layoutX="775.0" layoutY="123.0" prefHeight="359.0" prefWidth="455.0">
+                    <columns>
+                        <TableColumn prefWidth="149.0" text="Order ID" />
+                        <TableColumn prefWidth="157.0" text="ISBN" />
+                        <TableColumn prefWidth="148.0" text="Copies Number" />
+                    </columns>
+                </TableView>
+                <Button layoutX="26.0" layoutY="637.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #001aa0;" text="View Top Lists" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Rounded MT Bold" size="14.0" />
+                    </font>
+                </Button>
+
+            </children>
+        </AnchorPane>
+        <AnchorPane prefHeight="60.0" prefWidth="1250.0" style="-fx-background-color: #2e333d;">
+            <children>
+                <ImageView fitHeight="35.0" fitWidth="32.0" layoutX="1204.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../icons/icons8_cancel_48px.png" />
+                    </image>
+                </ImageView>
+                <Label alignment="CENTER" layoutX="62.0" layoutY="18.0" prefHeight="17.0" prefWidth="144.0" text="Manage" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Tahoma Bold" size="20.0" />
+                    </font>
+                </Label>
+                <ImageView fitHeight="30.0" fitWidth="38.0" layoutX="53.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../icons/icons8_manager_50px.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="1165.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../icons/icons8_left_64px.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>
