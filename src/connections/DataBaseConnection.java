@@ -202,6 +202,30 @@ public class DataBaseConnection {
         }
     }
 
+    // Method to Show the Orders
+    public ArrayList<ArrayList<Integer>> showOrders() {
+        ArrayList<ArrayList<Integer>> result;
+        try {
+            // Connect to the database
+            Connection connection = DriverManager.getConnection(url, dbUser, password);
+            // Call the sql required procedure to show the orders
+            CallableStatement statement = connection.prepareCall("{call showOrders()}");
+            statement.execute();
+            ResultSet r = statement.getResultSet();
+            int i = 0;
+            while (r.next()) {
+                result.add(new ArrayList<Integer>());
+                for (int j = 1; j < 4; ++j) {
+                    result.get(i).add(r.getInt(j));
+                }
+                ++i;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     // Method to edit the user info
     public Boolean edit_user_info (User user) {
         try {
