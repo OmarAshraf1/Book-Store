@@ -17,19 +17,12 @@ import jasper.JasperManagerCSV;
 
 
 public class DataBaseConnection {
-<<<<<<< Updated upstream
-    String url = "jdbc:mysql://localhost:3306/bookstore";
-    String dbUser = "test";
-    String password = "test";
-    
-    jasper.JasperManager jasper = new JasperManagerCSV() ;  
-    
-    String LoggedinUser = null ;
-//calling procedures cite: https://www.mysqltutorial.org/calling-mysql-stored-procedures-from-jdbc/
-=======
     private String url = "jdbc:mysql://localhost:3306/bookstore";
     private String dbUser = "root";
     private String password = "123456";
+
+    jasper.JasperManager jasper = new JasperManagerCSV() ;  
+    //calling procedures cite: https://www.mysqltutorial.org/calling-mysql-stored-procedures-from-jdbc/
 
     private User active_user;
 
@@ -41,7 +34,6 @@ public class DataBaseConnection {
         this.active_user = active_user;
     }
 
->>>>>>> Stashed changes
     public Boolean sign_up (User user) {
         try{
             // Connect to the database
