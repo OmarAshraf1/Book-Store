@@ -9,6 +9,32 @@ public class Book {
     private double sellingPrice;
     private String category;
     private int threshold;
+    private int noOfCopies;
+
+    
+
+    public Book(int iSBN, String title, String[] authors, String publisher, int publicationYear, double sellingPrice,
+            String category, int threshold) {
+        ISBN = iSBN;
+        this.title = title;
+        this.authors = authors;
+        this.publisher = publisher;
+        this.publicationYear = publicationYear;
+        this.sellingPrice = sellingPrice;
+        this.category = category;
+        this.threshold = threshold;
+    }
+
+    public Book(int iSBN, String title, String publisher, int publicationYear, double sellingPrice,
+        String category, int noOfCopies) {
+        ISBN = iSBN;
+        this.title = title;
+        this.publisher = publisher;
+        this.publicationYear = publicationYear;
+        this.sellingPrice = sellingPrice;
+        this.category = category;
+        this.noOfCopies = noOfCopies;
+    }
 
     public int getISBN() {
         return ISBN;

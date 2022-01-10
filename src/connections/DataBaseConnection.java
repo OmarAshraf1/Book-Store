@@ -143,7 +143,71 @@ public class DataBaseConnection {
         }
     }
 
+    // Method to search with any criteria
+    public ArrayList<Book> search (String category, String search_text){
+        ArrayList<java.awt.print.Book> result = new ArrayList<>();
+        try {
+            Connection connection = DriverManager.getConnection(url, dbUser, password);
+            CallableStatement statement;
+            if ( category.equals("ISBN") ){
+                int ISBN = Integer.parseInt(search_text);
+                statement = search_ISBN(ISBN, connection);
+            }
+            else if ( category.equals("Title") ){
+                statement = search_Title(search_text, connection);
+            }
+            else if ( category.equals("Category") ){
+                statement = search_Category(search_text, connection);
+            }
+            else if ( category.equals("Author") ){
+                statement = search_Author(search_text, connection);
+            }
+            else {
+                statement = search_Publisher(search_text, connection);
+            }
+            statement.execute();
+            ResultSet r = statement.getResultSet();
 
+            while (r.next()) {
+                Book book = new Book(r.getString(1), r.getString(2), r.getString(3), r.getString(6), r.getString(5), r.getString(4), r.getString(7));
+                result.add(book);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public CallableStatement search_ISBN (int ISBN, Connection connection) throws Exception {
+        CallableStatement statement = connection.prepareCall("{call searchByISBN(?)}");
+        statement.setInt(1, ISBN);
+        return statement;
+    }
+
+    public CallableStatement search_Title (String search_text, Connection connection) throws Exception {
+        CallableStatement statement = connection.prepareCall("{call searchByTitle(?)}");
+        statement.setString(1, search_text);
+        return statement;
+    }
+
+    public CallableStatement search_Category (String search_text, Connection connection) throws Exception {
+        CallableStatement statement = connection.prepareCall("{call searchByCategory(?)}");
+        statement.setString(1, search_text);
+        return statement;
+    }
+
+    public CallableStatement search_Author (String search_text, Connection connection) throws Exception {
+        CallableStatement statement = connection.prepareCall("{call searchByAuthor(?)}");
+        statement.setString(1, search_text);
+        return statement;
+    }
+
+    public CallableStatement search_Publisher (String search_text, Connection connection) throws Exception {
+        CallableStatement statement = connection.prepareCall("{call searchByPublisher(?)}");
+        statement.setString(1, search_text);
+        return statement;
+    }
 
     
     // Method to get cart
