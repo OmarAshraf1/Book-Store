@@ -119,13 +119,79 @@ public class DataBaseConnection {
         return true;
     }
 
+    // Method to add Publisher
+    public Boolean addPublisher(String name, String address, String phoneNumber) {
+        try {
+            // Connect to the database
+            Connection connection = DriverManager.getConnection(url, dbUser, password);
+            // Call the sql required procedure to add a publisher
+            CallableStatement statement = connection.prepareCall("{call addPublisher(?, ?, ?)}");
+            statement.setString(1, name);
+            statement.setString(2, address);
+            statement.setString(3, phoneNumber);
+            statement.execute();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // Metod to modify a book info
+    public Boolean modifyBook(int ISBN, Book book) {
+        try {
+            // Connect to the database
+            Connection connection = DriverManager.getConnection(url, dbUser, password);
+            CallableStatement statement1 = connection.prepareCall("{call modifyBook(?, ?, ?, ?, ?, ?, ?, ?)}");
+            CallableStatement statement2 = connection.prepareCall("{call removeAuthors(?)}");
+            CallableStatement statement3 = connection.prepareCall("{call addAuthor(?, ?)}");
+            statement1.setInt(1, ISBN);
+            statement1.setInt(2, book.getISBN());
+            statement1.setString(3, book.getTitle());
+            statement1.setString(4,book.getPublisher());
+            statement1.setString(5, book.getCategory());
+            statement1.setDouble(6, book.getSellingPrice());
+            statement1.setInt(7, book.getPublicationYear());
+            statement1.setInt(8, book.getThreshold());
+            statement1.execute();
+
+            // edit the authors
+            statement2.setInt(1, book.getISBN());
+            statement2.execute();
+            for (String author : book.getAuthors()){
+                statement3.setInt(1, book.getISBN());
+                statement3.setString(2,author);
+                statement3.execute();
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // Method to confirm an Order
+    public void confirmOrder(int orderNo) {
+        try {
+            // Connect to the database
+            Connection connection = DriverManager.getConnection(url, dbUser, password);
+            // Call the sql required procedure to confirm the order
+            CallableStatement statement = connection.prepareCall("{call confirmOrder(?)}");
+            statement.setInt(1, orderNo);
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     // Method to edit the user info
     public Boolean edit_user_info (User user) {
         try {
             // Connect to the database
             Connection connection = DriverManager.getConnection(url, dbUser, password);
             // Call the sql required procedure to edit the user info
-            CallableStatement statement = conn.prepareCall("{call editUserInfo(?, ?, ?, ?, ?, ?, ?, ?)}");
+            CallableStatement statement = connection.prepareCall("{call editUserInfo(?, ?, ?, ?, ?, ?, ?, ?)}");
             statement.setString(1, getActive_user().getUsername());
             statement.setString(2, user.getUsername());
             statement.setString(3, user.getFirstName());
@@ -135,6 +201,9 @@ public class DataBaseConnection {
             statement.setString(7, user.getShippingAddress());
             statement.setString(8, user.getPassword());
             statement.execute();
+
+            /* Store the new info of the user */
+            setActive_user(user);
             return true;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
